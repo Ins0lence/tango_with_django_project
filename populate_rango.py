@@ -1,6 +1,8 @@
 import os
+import random
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 'tango_with_django_project.settings')
+
 
 import django
 django.setup()
@@ -32,11 +34,14 @@ def populate():
     cats = {'Python': {'pages': python_pages, "views":128, "likes":64},
         'Django': {'pages': django_pages, "views":64, "likes":32},
         'Other Frameworks': {'pages': other_pages, "views":32, "likes":16} }
-    
+
+    v=[421, 837, 335, 571, 602, 493, 974, 454]
+    counter=0
     for cat, cat_data in cats.items():
         c = add_cat(cat)
         for p in cat_data['pages']:
-            add_page(c, p['title'], p['url'])
+            add_page(c, p['title'], p['url'], v[counter])
+            counter+=1
         c.views=cat_data["views"]
         c.likes=cat_data["likes"]
         c.save()
@@ -61,4 +66,5 @@ def add_cat(name):
 
 if __name__ == '__main__':
     print('Starting Rango population script...')
-    populate()
+    populate()
+
