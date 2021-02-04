@@ -2,10 +2,12 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 class Category(models.Model):
-    name=models.CharField(max_length=128, unique=True)
+    maxLength=128
+    name=models.CharField(max_length=maxLength, unique=True)
     views=models.IntegerField(default=0)
     likes=models.IntegerField(default=0)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True)
+
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
